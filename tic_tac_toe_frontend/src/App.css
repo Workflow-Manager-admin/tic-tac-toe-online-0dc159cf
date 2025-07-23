@@ -1,7 +1,7 @@
 :root {
-  /* Light theme colors */
-  --bg-primary: #fff;
-  --bg-secondary: #f8f9fa;
+  /* Light theme colors (modified for green background) */
+  --bg-primary: #27ae60;       /* A light, minimalistic green */
+  --bg-secondary: #43d17a;     /* Lighter green for secondary sections */
   --text-primary: #282c34;
   --text-secondary: #424242;
   --border-color: #e0e0e0;
