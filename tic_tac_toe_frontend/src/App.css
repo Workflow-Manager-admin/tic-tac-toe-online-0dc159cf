@@ -1,13 +1,13 @@
-/* CSS Variables for Theme Management */
 :root {
   /* Light theme colors */
-  --bg-primary: #ffffff;
+  --bg-primary: #fff;
   --bg-secondary: #f8f9fa;
   --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --text-secondary: #424242;
+  --border-color: #e0e0e0;
+  --button-bg: #1976D2;
+  --button-text: #fff;
+  --accent: #FFC107;
 }
 
 [data-theme="dark"] {
@@ -19,6 +19,7 @@
   --border-color: #404040;
   --button-bg: #0056b3;
   --button-text: #ffffff;
+  --accent: #FFC107;
 }
 
 .App {
@@ -26,38 +27,10 @@
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
+/* Themed Button: theme toggle (provided by template) */
 .theme-toggle {
   position: absolute;
   top: 20px;
@@ -71,34 +44,192 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
 }
 
 .theme-toggle:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+  opacity: 0.93;
 }
 
 .theme-toggle:active {
   transform: translateY(0);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-header {
+  background-color: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: calc(10px + 2vmin);
+  color: var(--text-primary);
+  min-height: unset;
+  position: relative;
+  transition: background 0.3s;
+  padding-bottom: 1rem;
 }
 
-/* Responsive design for mobile */
+/* Board styles */
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 82px);
+  grid-template-rows: repeat(3, 82px);
+  gap: 0px;
+  margin: 0 auto;
+  background: var(--bg-primary);
+  border-radius: 14px;
+  box-shadow: 0 2px 16px 0 rgba(31, 41, 58, 0.07);
+  border: 2px solid var(--border-color);
+  max-width: 250px;
+}
+
+/* Board Cell */
+.ttt-cell {
+  width: 80px;
+  height: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2em;
+  font-weight: 700;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  transition: background 0.13s, color 0.13s;
+  user-select: none;
+  outline: none;
+}
+
+.ttt-cell:focus {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.ttt-cell[disabled],
+.ttt-cell:disabled {
+  cursor: default;
+  background: #f4f4f4;
+  color: #bbb;
+}
+
+.board-outer {
+  background: transparent;
+  padding: 18px 0 2px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.main-container {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+/* Controls */
+.ttt-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0;
+}
+
+.ttt-mode {
+  border: 1.5px solid var(--button-bg);
+  border-radius: 8px;
+  padding: 8px 19px;
+  margin: 0 7px 0 0;
+  color: var(--button-bg);
+  background: var(--bg-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.22s;
+  margin-bottom: 6px;
+}
+.ttt-mode.active,
+.ttt-mode:active,
+.ttt-mode:focus {
+  background: var(--button-bg);
+  color: #fff;
+}
+
+.score-row {
+  margin-bottom: 9px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ttt-reset {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 8px;
+  transition: background 0.15s;
+  box-shadow: 0 1px 3px rgba(31, 41, 58, 0.06);
+}
+
+.ttt-reset:hover {
+  background: #e3b006;
+}
+
+.ttt-status {
+  margin-top: 10px;
+  font-size: 1.12rem;
+  min-height: 32px;
+}
+
 @media (max-width: 768px) {
   .theme-toggle {
     top: 10px;
     right: 10px;
     padding: 8px 16px;
     font-size: 12px;
+  }
+
+  .ttt-board {
+    grid-template-columns: repeat(3, 64px);
+    grid-template-rows: repeat(3, 64px);
+    max-width: 200px;
+  }
+  .ttt-cell {
+    width: 62px;
+    height: 62px;
+    font-size: 1.5em;
+  }
+  .main-container {
+    max-width: 98vw;
+  }
+}
+
+@media (max-width: 410px) {
+  .ttt-board {
+    grid-template-columns: repeat(3, 46px);
+    grid-template-rows: repeat(3, 46px);
+    max-width: 140px;
+  }
+  .ttt-cell {
+    width: 44px;
+    height: 44px;
+    font-size: 1em;
   }
 }
